@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,5 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/cars', [CarController::class, "index"]);
-Route::get('/cars/{car:name}', [CarController::class, "show"]);
+Route::get('/cars', [CarController::class, "index"]);//getAllCars
+Route::get('/cars/{car:name}', [CarController::class, "show"]);//getSingleCar
+
+Route::get('/categories', [CategoryController::class, "index"]);//getAllCategories
+
+
+Route::get('/brands', [BrandController::class, "index"]);//getAllBrands
