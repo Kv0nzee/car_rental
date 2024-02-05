@@ -23,4 +23,23 @@ class CarController extends Controller
         // ->paginate(6)
         // ->withQueryString()
     }
+
+    public function show(Car $car){
+        try{
+            if(!$car){
+                return response()->json([  
+                    'message' => 'car not found',
+                    'status' => 500
+                ],404);
+            }
+
+            return $car;
+            
+        }catch(Exception $e){
+            return response()->json([
+                'message' => $e->getMessage(),
+                'status' => 500
+            ], 500);
+        }
+    }
 }
