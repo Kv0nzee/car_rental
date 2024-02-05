@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Brands;
-use App\Models\Categories;
+use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cars>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Car>
  */
-class CarsFactory extends Factory
+class CarFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,8 +19,8 @@ class CarsFactory extends Factory
     public function definition(): array
     {
         return [
-            'brand_id' => Brands::factory(),
-            'category_id' => Categories::factory(),
+            'brand_id' => Brand::factory(),
+            'category_id' => Category::factory(),
             'year' => $this->faker->year,
             'name' => $this->faker->word,
             'image' => $this->faker->word,

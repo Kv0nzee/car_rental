@@ -9,9 +9,9 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('cars', function (Blueprint $table) {
+       Schema::create('cars', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('category_id');

@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Brands;
-use App\Models\Cars;
-use App\Models\Categories;
+use App\Models\Brand;
+use App\Models\Car;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
-            Categories::create($category);
+            Category::create($category);
         }
 
         $brands = [
@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($brands as $brand) {
-            Brands::create($brand);
+            Brand::create($brand);
         }
 
         $jsonData = '[
@@ -204,11 +204,173 @@ class DatabaseSeeder extends Seeder
             }
         ]';
 
+        $jsonData2 = '[
+            {
+                "city_mpg": 19,
+                "category_id": 3,
+                "combination_mpg": 21,
+                "cylinders": 6,
+                "displacement": 3.5,
+                "drive": "awd",
+                "fuel_type": "gas",
+                "highway_mpg": 25,
+                "brand_id": 3,
+                "name": "mdx awd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 25,
+                "category_id": 3,
+                "combination_mpg": 25,
+                "cylinders": 4,
+                "displacement": 1.5,
+                "drive": "4wd",
+                "fuel_type": "gas",
+                "highway_mpg": 26,
+                "brand_id": 5,
+                "name": "eclipse cross 4wd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 25,
+                "category_id": 3,
+                "combination_mpg": 26,
+                "cylinders": 4,
+                "displacement": 1.5,
+                "drive": "4wd",
+                "fuel_type": "gas",
+                "highway_mpg": 28,
+                "brand_id": 5,
+                "name": "eclipse cross es 4wd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 18,
+                "category_id": 4,
+                "combination_mpg": 21,
+                "cylinders": 6,
+                "displacement": 3.3,
+                "drive": "rwd",
+                "fuel_type": "gas",
+                "highway_mpg": 27,
+                "brand_id": 
+               "name": "g70 rwd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 20,
+                "category_id": 3,
+                "combination_mpg": 23,
+                "cylinders": 4,
+                "displacement": 2,
+                "drive": "fwd",
+                "fuel_type": "gas",
+                "highway_mpg": 28,
+                "brand_id": 2,
+                "name": "sportage fwd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 23,
+                "category_id": 3,
+                "combination_mpg": 26,
+                "cylinders": 4,
+                "displacement": 2.4,
+                "drive": "fwd",
+                "fuel_type": "gas",
+                "highway_mpg": 30,
+                "brand_id": 2,
+                "name": "sportage fwd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 24,
+                "category_id": 3,
+                "combination_mpg": 27,
+                "cylinders": 4,
+                "displacement": 2.5,
+                "drive": "fwd",
+                "fuel_type": "gas",
+                "highway_mpg": 31,
+                "brand_id": 5,
+                "name": "outlander 2wd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 19,
+                "category_id": 3,
+                "combination_mpg": 21,
+                "cylinders": 6,
+                "displacement": 3.5,
+                "drive": "awd",
+                "fuel_type": "gas",
+                "highway_mpg": 25,
+                "brand_id": 
+               "name": "gv70 awd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 24,
+                "category_id": 3,
+                "combination_mpg": 26,
+                "cylinders": 4,
+                "displacement": 2.5,
+                "drive": "awd",
+                "fuel_type": "gas",
+                "highway_mpg": 29,
+                "brand_id": 4,
+                "name": "tucson awd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 19,
+                "category_id": 3,
+                "combination_mpg": 21,
+                "cylinders": 4,
+                "displacement": 2,
+                "drive": "awd",
+                "fuel_type": "gas",
+                "highway_mpg": 24,
+                "brand_id": 2,
+                "name": "sportage awd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            }
+        ]'; 
+
         $carData = json_decode($jsonData, true);
+        $carData2 = json_decode($jsonData2, true);
         foreach ($carData as $car) {
             try {
                 // Make sure your 'Cars' model is correctly defined
-                Cars::create($car);
+                Car::create($car);
+            } catch (\Exception $e) {
+                echo "Error creating record: " . $e->getMessage();
+            }
+        }
+        foreach ($carData2 as $car) {
+            try {
+                // Make sure your 'Cars' model is correctly defined
+                Car::create($car);
             } catch (\Exception $e) {
                 echo "Error creating record: " . $e->getMessage();
             }
