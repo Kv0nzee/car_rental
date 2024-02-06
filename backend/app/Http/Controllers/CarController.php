@@ -10,8 +10,14 @@ class CarController extends Controller
 {
     public function index(){
         try{
-            $cars = Car::latest()->filter(request(["category", "brand"]))->get(); // Fetch the data
-            return $cars;
+            $cars = Car::latest()
+            ->filter(request(["category", "brand"]))
+            ->join('categories', 'cars.category_id', '=', 'categories.id')
+            ->join('brands', 'cars.brand_id', '=', 'brands.id')
+            ->select('cars.*', 'categories.name as category_name', 'brands.name as brand_name')
+            ->get();
+
+        return $cars;
         }catch( Exception $e){
             return response()->json([
                 'message' => $e->getMessage(),
