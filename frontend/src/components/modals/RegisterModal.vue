@@ -93,11 +93,16 @@ export default {
     const submitForm = async() => {
       try {
         const response = await axios.post('http://127.0.0.1:8000/api/register', {
-          username: username.value,
+          name: username.value,
           email: email.value,
           password: password.value
-        });
-        console.log(response.data); // Assuming the response contains relevant data
+        }, {
+              headers: {
+                'content-type' : 'application/json'
+              }
+            })
+        console.log(response.data); 
+        emit('closeRegisterModal');
       } catch (error) {
         console.error('Error:', error);
       }

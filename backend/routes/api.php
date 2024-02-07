@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,6 @@ Route::get('/categories', [CategoryController::class, "index"]);//getAllCategori
 
 
 Route::get('/brands', [BrandController::class, "index"]);//getAllBrands
+
+
+Route::post('/register', [UserController::class, 'register']);
