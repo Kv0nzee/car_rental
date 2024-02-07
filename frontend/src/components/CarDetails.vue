@@ -11,7 +11,7 @@
       >
         <div class="fixed inset-0 bg-black bg-opacity-50" @click="closeModal"></div>
       </TransitionChild>
-      <Dialog.Content className='fixed inset-0 overflow-y-auto' as="div">
+      <Dialog className='fixed inset-0 overflow-y-auto' as="div">
         <div class="flex items-center justify-center min-h-screen" @click.self="closeModal">
             <TransitionChild
                 enter-active-class="transition-opacity duration-300 ease-out"
@@ -103,7 +103,7 @@
           </div>
       </TransitionChild>
         </div>
-      </Dialog.Content>
+      </Dialog>
     </Dialog>
   </TransitionRoot>
 </template>

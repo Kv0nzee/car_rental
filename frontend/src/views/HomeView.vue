@@ -8,15 +8,6 @@
         <p>Explore our cars you might like</p>
       </div>
 
-      <!-- <div class="home__filters">
-        <SearchBar />
-
-        <div class="home__filter-container">
-          <CustomFilter title="fuel" :options="fuels" />
-          <CustomFilter title="year" :options="yearsOfProduction" />
-        </div>
-      </div> -->
-
       <section v-if="!isDataEmpty">
         <div class="home__cars-wrapper">
           <CarCard v-for="car in cars" :key="car.id" :car="car" />

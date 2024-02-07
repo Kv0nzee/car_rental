@@ -9,8 +9,8 @@
       </p>
       <CustomButton
         title="Explore Cars"
-        containerStyles="bg-gray-200 text-black text-white rounded-full mt-10"
-        @click="button"
+        containerStyles="bg-gray-800 text-black text-white rounded-full mt-10"
+        @click="handleScroll"
       />
     </div>
     <div class=" hero__image-container">

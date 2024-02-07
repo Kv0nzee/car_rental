@@ -16,11 +16,13 @@
         title="Log in"
         btnType="button"
         :containerStyles="' color-[#B480FF] rounded-full bg-gray-200 min-w-[130px]'"
+        @click="openLoginModal"
       />
       <CustomButton
-        title="Sign in"
+        title="Register"
         btnType="button"
         :containerStyles="' color-[#B480FF] rounded-full bg-white min-w-[130px]'"
+        @click="openRegisterModal"
       />
     </nav>
   </header>
@@ -28,6 +30,7 @@
 
 <script>
 import { ref } from "vue";
+import { useStore } from 'vuex';
 import CustomButton from './CustomButton.vue';
 
 export default {
@@ -35,9 +38,17 @@ export default {
     CustomButton
   },
   setup() {
-    // You can add any logic or reactive data here if needed
+    const store = useStore(); // Access the Vuex store
 
-    return {};
+    const openLoginModal = () => {
+      store.commit('openLoginModal'); 
+    };
+
+    const openRegisterModal = () => {
+      store.commit('openRegisterModal'); 
+    };
+
+    return {openLoginModal, openRegisterModal};
   },
 };
 </script>

@@ -12,7 +12,9 @@
     "@headlessui/vue": "^1.7.18",
     "axios": "^1.6.7",
     "vue": "^3.4.15",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vuex": "^4.0.2",
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",
