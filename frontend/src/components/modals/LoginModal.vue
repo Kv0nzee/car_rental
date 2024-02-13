@@ -1,5 +1,5 @@
 <template>
-  <TransitionRoot appear :show="isOpen" as="template">
+  <TransitionRoot appear :show="store.state.isLoginModalOpen" as="template">
     <Dialog as="div" @close="closeModal" class="relative z-10">
       <TransitionChild
         as="template"
@@ -35,11 +35,11 @@
               >
                 Login
               </DialogTitle>
-             <div class="mt-2">
+              <div class="mt-2">
                 <form @submit.prevent="submitForm">
                   <div class="mb-4">
-                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                    <input type="text" id="username" v-model="username" class="block w-full p-2 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <label for="email" class="block text-sm font-medium text-gray-700">email</label>
+                    <input type="email" id="email" v-model="email" class="block w-full p-2 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                   </div>
                   <div class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
@@ -51,7 +51,7 @@
                     </button>
                   </div>
                 </form>
-            </div>
+              </div>
             </DialogPanel>
           </TransitionChild>
         </div>
@@ -61,8 +61,9 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import { useStore } from 'vuex';
 import {
   TransitionRoot,
   TransitionChild,
@@ -73,41 +74,64 @@ import {
 
 export default {
   components: {
-    Dialog,
     TransitionRoot,
     TransitionChild,
     Dialog,
     DialogPanel,
     DialogTitle
   },
-  props: {
-    isOpen: Boolean,
-  },
   emits: ['closeLoginModal'],
   setup(props, { emit }) {
-    const username = ref('');
+    const store = useStore();
+    const email = ref('');
     const password = ref('');
     const closeModal = () => {
-      emit('closeLoginModal');
+      email.value = '';
+      password.value = '';
+      store.commit('closeLoginModal'); 
     };
 
     const submitForm = async () => {
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/api/user', {
-            username: username.value,
-            password: password.value
-            });
-            console.log(response.data); // Assuming the response contains relevant data
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/login', {
+          email: email.value,
+          password: password.value
+        });
+        localStorage.setItem('token', response.data.token);
+        store.commit('closeLoginModal'); 
+        store.commit('isLoggedIn'); 
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle error appropriately, e.g., display error message to user
+      }
+    };
+//pyn pyin
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://127.0.0.1:8000/api/user', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        console.log('User data:', response.data.user.id);
+        // Process user data as needed
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle error appropriately, e.g., display error message to user
+      }
+    };
+
+     onMounted(async () => {
+      await fetchUserData();
+    });
 
     return {
       closeModal,
       submitForm,
-      username,
-      password
+      email,
+      password,
+      store
     };
   },
 };

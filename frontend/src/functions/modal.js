@@ -6,6 +6,7 @@ const store = createStore({
     return {
       isRegisterModalOpen: false,
       isLoginModalOpen: false,
+      isLoggedIn: false,
     };
   },
   mutations: {
@@ -21,6 +22,9 @@ const store = createStore({
     closeLoginModal(state) {
       state.isLoginModalOpen = false;
     },
+    isLoggedIn(state){
+      state.isLoggedIn = !state.isLoggedIn;
+    }
   }
 });
 

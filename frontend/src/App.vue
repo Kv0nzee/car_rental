@@ -7,21 +7,13 @@ import RegisterModal from './components/modals/RegisterModal.vue'; // Import you
 
 const store = useStore(); // Access the Vuex store
 
-const closeLoginModal = () => {
-  store.commit('closeLoginModal'); 
-};
-
-const closeRegisterModal = () => {
-  store.commit('closeRegisterModal'); 
-};
-
 </script>
 
 <template>
 <section class="overflow-hidden">
    <Navbar/>
-  <LoginModal :isOpen="store.state.isLoginModalOpen" @closeLoginModal="closeLoginModal"/>
-  <RegisterModal :isOpen="store.state.isRegisterModalOpen" @closeRegisterModal="closeRegisterModal"/>
+  <LoginModal/>
+  <RegisterModal/>
   <RouterView />
 </section>
 </template>

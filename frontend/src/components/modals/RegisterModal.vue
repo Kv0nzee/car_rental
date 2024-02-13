@@ -1,5 +1,5 @@
 <template>
-  <TransitionRoot appear :show="isOpen" as="template">
+  <TransitionRoot appear :show="store.state.isRegisterModalOpen" as="template">
     <Dialog as="div" @close="closeModal" class="relative z-10">
       <TransitionChild
         as="template"
@@ -66,6 +66,7 @@
 <script>
 import { ref } from 'vue';
 import axios from 'axios';
+import { useStore } from 'vuex';
 import {
   TransitionRoot,
   TransitionChild,
@@ -82,11 +83,9 @@ export default {
     DialogPanel,
     DialogTitle
   },
-  props: {
-    isOpen: Boolean,
-  },
   emits: ['closeRegisterModal'],
   setup(props, { emit }) {
+    const store = useStore();
      const username = ref('');
     const password = ref('');
      const email = ref('');
@@ -100,23 +99,34 @@ export default {
               headers: {
                 'content-type' : 'application/json'
               }
-            })
-        console.log(response.data); 
-        emit('closeRegisterModal');
+            });
+       closeModal();
       } catch (error) {
         console.error('Error:', error);
       }
     };
     const closeModal = () => {
-      emit('closeRegisterModal');
+      username.value = '';
+      email.value = '';
+      password.value = ''; 
+      store.commit('closeRegisterModal'); 
     };
     return{
         closeModal,
         submitForm,
         username,
         password,
-        email
+        email,
+        store
     }
   }
 };
 </script>
+<style>
+.modal-fade-enter-active, .modal-fade-leave-active {
+  transition: opacity 0.3s;
+}
+.modal-fade-enter-from, .modal-fade-leave-to {
+  opacity: 0;
+}
+</style>

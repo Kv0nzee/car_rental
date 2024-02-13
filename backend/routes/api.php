@@ -28,3 +28,5 @@ Route::get('/brands', [BrandController::class, "index"]);//getAllBrands
 
 
 Route::post('/register', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
+Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getUserData']);
