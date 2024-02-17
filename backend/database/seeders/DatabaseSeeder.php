@@ -259,8 +259,8 @@ class DatabaseSeeder extends Seeder
                 "drive": "rwd",
                 "fuel_type": "gas",
                 "highway_mpg": 27,
-                "brand_id": 
-               "name": "g70 rwd",
+                "brand_id": 6, 
+                "name": "g70 rwd",
                 "transmission": "a",
                 "image": null,
                 "year": 2022
@@ -309,7 +309,10 @@ class DatabaseSeeder extends Seeder
                 "transmission": "a",
                 "image": null,
                 "year": 2022
-            },
+            }
+        ]';
+
+        $jsonData3 = '[
             {
                 "city_mpg": 19,
                 "category_id": 3,
@@ -319,7 +322,7 @@ class DatabaseSeeder extends Seeder
                 "drive": "awd",
                 "fuel_type": "gas",
                 "highway_mpg": 25,
-                "brand_id": 
+                "brand_id": 6,
                "name": "gv70 awd",
                 "transmission": "a",
                 "image": null,
@@ -354,11 +357,102 @@ class DatabaseSeeder extends Seeder
                 "transmission": "a",
                 "image": null,
                 "year": 2022
+            },
+            {
+                "city_mpg": 22,
+                "category_id": 3,
+                "combination_mpg": 23,
+                "cylinders": 4,
+                "displacement": 2.4,
+                "drive": "awd",
+                "fuel_type": "gas",
+                "highway_mpg": 26,
+                "brand_id": 2,
+                "name": "sportage awd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 24,
+                "category_id": 3,
+                "combination_mpg": 26,
+                "cylinders": 4,
+                "displacement": 2.5,
+                "drive": "4wd",
+                "fuel_type": "gas",
+                "highway_mpg": 30,
+                "brand_id": 5,
+                "name": "outlander 4wd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 29,
+                "category_id": 3,
+                "combination_mpg": 32,
+                "cylinders": 4,
+                "displacement": 1.6,
+                "drive": "fwd",
+                "fuel_type": "gas",
+                "highway_mpg": 35,
+                "brand_id": 4,
+                "name": "kona fwd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 30,
+                "category_id": 3,
+                "combination_mpg": 32,
+                "cylinders": 4,
+                "displacement": 2,
+                "drive": "fwd",
+                "fuel_type": "gas",
+                "highway_mpg": 35,
+                "brand_id": 4,
+                "name": "kona fwd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 27,
+                "category_id": 3,
+                "combination_mpg": 29,
+                "cylinders": 4,
+                "displacement": 1.6,
+                "drive": "awd",
+                "fuel_type": "gas",
+                "highway_mpg": 32,
+                "brand_id": 4,
+                "name": "kona awd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
+            },
+            {
+                "city_mpg": 28,
+                "category_id": 3,
+                "combination_mpg": 30,
+                "cylinders": 4,
+                "displacement": 2,
+                "drive": "awd",
+                "fuel_type": "gas",
+                "highway_mpg": 33,
+                "brand_id": 4,
+                "name": "kona awd",
+                "transmission": "a",
+                "image": null,
+                "year": 2022
             }
-        ]'; 
+        ]';
 
         $carData = json_decode($jsonData, true);
-        $carData2 = json_decode($jsonData2, true);
+        $anotherData = json_decode($jsonData2, true);
+        $anotherDat2 = json_decode($jsonData3, true);
         foreach ($carData as $car) {
             try {
                 // Make sure your 'Cars' model is correctly defined
@@ -367,7 +461,15 @@ class DatabaseSeeder extends Seeder
                 echo "Error creating record: " . $e->getMessage();
             }
         }
-        foreach ($carData2 as $car) {
+        foreach ($anotherData as $car) {
+            try {
+                // Make sure your 'Cars' model is correctly defined
+                Car::create($car);
+            } catch (\Exception $e) {
+                echo "Error creating record: " . $e->getMessage();
+            }
+        }
+        foreach ($anotherDat2 as $car) {
             try {
                 // Make sure your 'Cars' model is correctly defined
                 Car::create($car);

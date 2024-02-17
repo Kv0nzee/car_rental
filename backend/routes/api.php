@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RentCarController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,9 @@ Route::get('/categories', [CategoryController::class, "index"]);//getAllCategori
 
 Route::get('/brands', [BrandController::class, "index"]);//getAllBrands
 
+Route::post('/rent', [RentCarController::class, "store"]);//insertRentCar
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getUserData']);
+Route::post('/logout', [UserController::class, 'logout']);
