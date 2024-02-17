@@ -11,34 +11,49 @@
         />
       </router-link>
       
-
-      <CustomButton
-        title="Log in"
-        btnType="button"
-        :containerStyles="' color-[#B480FF] rounded-full bg-gray-200 min-w-[130px]'"
-        @click="openLoginModal"
-      />
-      <CustomButton
-        title="Register"
-        btnType="button"
-        :containerStyles="' color-[#B480FF] rounded-full bg-white min-w-[130px]'"
-        @click="openRegisterModal"
-      />
+      <!-- Conditional rendering of buttons based on authentication status -->
+      <template v-if="!isLoggedIn">
+        <CustomButton
+          title="Log in"
+          btnType="button"
+          :containerStyles="'color-[#B480FF] rounded-full bg-gray-200 min-w-[130px]'"
+          @click="openLoginModal"
+        />
+        <CustomButton
+          title="Register"
+          btnType="button"
+          :containerStyles="'color-[#B480FF] rounded-full bg-white min-w-[130px]'"
+          @click="openRegisterModal"
+        />
+      </template>
+      <template v-else>
+        <div class="flex items-center gap-x-3">
+            <h1 class="text-xl font-extrabold">Hello {{store.state.user.name}}</h1>
+            <CustomButton
+              title="Logout"
+              btnType="button"
+              :containerStyles="'color-[#B480FF] rounded-full bg-gray-200 min-w-[130px]'"
+              @click="logout"
+            />
+        </div>
+        <!-- Render user information if needed -->
+      </template>
     </nav>
   </header>
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useStore } from 'vuex';
 import CustomButton from './CustomButton.vue';
+import axios from 'axios';
 
 export default {
   components: {
     CustomButton
   },
   setup() {
-    const store = useStore(); // Access the Vuex store
+    const store = useStore(); 
 
     const openLoginModal = () => {
       store.commit('openLoginModal'); 
@@ -48,7 +63,18 @@ export default {
       store.commit('openRegisterModal'); 
     };
 
-    return {openLoginModal, openRegisterModal};
+    const logout = async () => {
+      await axios.post('http://127.0.0.1:8000/api/logout');
+      store.commit('setUser', null);
+      localStorage.removeItem("token");
+      store.commit('setIsLoggedIn', false);
+      store.commit('setIsLoggedIn', false);
+    };
+
+    // Retrieve isLoggedIn from the store
+    const isLoggedIn = computed(() => store.state.isLoggedIn);
+
+    return { openLoginModal, openRegisterModal, logout, isLoggedIn, store };
   },
 };
 </script>

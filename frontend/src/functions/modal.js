@@ -7,9 +7,20 @@ const store = createStore({
       isRegisterModalOpen: false,
       isLoginModalOpen: false,
       isLoggedIn: false,
+      isRentOpen: false,
+      user: null,
     };
   },
   mutations: {
+    setUser(state, user) {
+      state.user = user;
+    },
+    openRentModal(state) {
+      state.isRentOpen = true;
+    },
+    closeRentModal(state) {
+      state.isRentOpen = false;
+    },
     openRegisterModal(state) {
       state.isRegisterModalOpen = true;
     },
@@ -22,8 +33,8 @@ const store = createStore({
     closeLoginModal(state) {
       state.isLoginModalOpen = false;
     },
-    isLoggedIn(state){
-      state.isLoggedIn = !state.isLoggedIn;
+    setIsLoggedIn(state, boo){
+      state.isLoggedIn = boo;
     }
   }
 });

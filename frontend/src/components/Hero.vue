@@ -58,6 +58,7 @@ export default {
 .hero__image-overlay {
     position: absolute;
     right: -50%;
+    top:5%;
     z-index: -10;
     height: 590px;
     width: 100%;

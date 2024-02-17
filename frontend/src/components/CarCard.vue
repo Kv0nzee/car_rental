@@ -44,7 +44,9 @@
       </div>
     </div>
 
-    <CarDetails :carAngles="carAngles" :generateCarImageUrlC="generateCarImageUrlC" :isOpen="isOpen" @closeModal="closeModal" :car="car" />
+    <CarDetails :carRent="carRent" :carAngles="carAngles" :generateCarImageUrlC="generateCarImageUrlC" :isOpen="isOpen" @closeModal="closeModal" :car="car" />
+    <RentModal :car="car" :carRent="carRent"/>
+
   </div>
 </template>
 <script>
@@ -52,6 +54,7 @@ import { ref, computed } from 'vue';
 import { calculateCarRent, generateCarImageUrl } from '@/utils';
 import CustomButton from './CustomButton.vue';
 import CarDetails from './CarDetails.vue';
+import RentModal from './modals/RentModal.vue';
 
 export default {
   props: {
@@ -59,7 +62,8 @@ export default {
   },
   components: {
     CustomButton,
-    CarDetails
+    CarDetails,
+    RentModal
   },
   setup(props) {
     const isOpen = ref(false);

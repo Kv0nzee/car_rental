@@ -100,7 +100,16 @@
                     </div>
                 </div>
                 </div>
-          </div>
+                <div>
+                    <custom-button
+                      title="Rent Car"
+                      containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
+                      textStyles="text-white text-[14px] leading-[17px] font-bold"
+                      :rightIcon="'/right-arrow.svg'"
+                      @click="openRentModal"
+                    />
+                </div>
+        </div>
       </TransitionChild>
         </div>
       </Dialog>
@@ -112,27 +121,40 @@
 <script>
 import { ref } from 'vue';
 import { Dialog, TransitionRoot, TransitionChild } from '@headlessui/vue';
+import CustomButton from './CustomButton.vue';
+import { useStore } from 'vuex';
 
 export default {
   components: {
     Dialog,
     TransitionRoot,
     TransitionChild,
+    CustomButton
   },
   props: {
     isOpen: Boolean,
     car: Object,
     generateCarImageUrlC: String,
-    carAngles: Array[String],
+    carAngles: Array[String]
   },
   emits: ['closeModal'],
   setup(props, { emit }) {
+
+    const store = useStore(); 
+
+    const openRentModal = () => {
+      closeModal();
+      store.commit('openRentModal');
+    }
+
     const closeModal = () => {
       emit('closeModal');
     };
 
     return {
       closeModal,
+      store,
+      openRentModal
     };
   },
 };
