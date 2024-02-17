@@ -99,7 +99,9 @@ export default {
               headers: {
                 'content-type' : 'application/json'
               }
-            });
+        });
+        localStorage.setItem('token', response.data.token);
+        emit("loadUser");
        closeModal();
       } catch (error) {
         console.error('Error:', error);

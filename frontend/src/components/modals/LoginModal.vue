@@ -98,34 +98,13 @@ export default {
           password: password.value
         });
         localStorage.setItem('token', response.data.token);
+        emit("loadUser");
         store.commit('closeLoginModal'); 
-        store.commit('isLoggedIn'); 
       } catch (error) {
         console.error('Error:', error);
         // Handle error appropriately, e.g., display error message to user
       }
     };
-//pyn pyin
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://127.0.0.1:8000/api/user', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        console.log('User data:', response.data.user.id);
-        // Process user data as needed
-      } catch (error) {
-        console.error('Error:', error);
-        // Handle error appropriately, e.g., display error message to user
-      }
-    };
-
-     onMounted(async () => {
-      await fetchUserData();
-    });
-
     return {
       closeModal,
       submitForm,

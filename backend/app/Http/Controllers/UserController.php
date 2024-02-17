@@ -26,8 +26,11 @@ class UserController extends Controller
                 'email' => $formData['email'],
                 'password' => bcrypt($formData['password']),
             ]);
+
+            Auth::login($user);
+            $token = $user->createToken('AuthToken')->plainTextToken;
     
-            return response()->json(['user' => $user, 'message' => 'User registered successfully'], 201);
+            return response()->json(['user' => $user, 'message' => 'User registered successfully',  'token' => $token], 201);
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -63,6 +66,13 @@ class UserController extends Controller
 
         // Return the user data as a JSON response
         return response()->json(['user' => $user]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
     }
 
     
