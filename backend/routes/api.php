@@ -30,6 +30,8 @@ Route::get('/brands', [BrandController::class, "index"]);//getAllBrands
 Route::get('/rent', [RentCarController::class, "index"]);//getAllRentedCars
 Route::get('/rent/{rentCar:id}', [RentCarController::class, "show"]);//getSingleRentedCar
 Route::post('/rent', [RentCarController::class, "store"]);//insertRentedCar
+Route::put('/rent/{id}', [RentCarController::class, 'update']);//update
+Route::delete('/rent/{id}', [RentCarController::class, 'delete']);//delete
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger("car_id");
             $table->string("days");
             $table->string("total_price");
+            $table->string("pricePerDay");
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

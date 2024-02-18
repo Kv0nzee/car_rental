@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 </div>
-                <div>
+                <div v-if="store.state.user"> 
                     <custom-button
                       title="Rent Car"
                       containerStyles="w-full py-[16px] rounded-full bg-primary-blue"

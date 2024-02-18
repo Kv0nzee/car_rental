@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RentCar extends Model
 {
     use HasFactory;
-    protected $fillable = ['days', 'total_price', 'car_id', 'user_id'];
+    protected $fillable = ['days', 'total_price', 'car_id', 'user_id', 'pricePerDay'];
 
     public function scopeFilter($query, $filters){
         $query->when($filters['car'] ?? false, function($query, $name){

@@ -103,6 +103,7 @@ export default {
       try {
         const response = await axios.post('http://127.0.0.1:8000/api/rent', {
           days: daysToRent.value,
+          pricePerDay: props.carRent,
           total_price: totalPrice.value,
           car_id: props.car.id,
           user_id: store.state.user.id
