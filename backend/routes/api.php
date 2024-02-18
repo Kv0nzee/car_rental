@@ -27,7 +27,9 @@ Route::get('/categories', [CategoryController::class, "index"]);//getAllCategori
 
 Route::get('/brands', [BrandController::class, "index"]);//getAllBrands
 
-Route::post('/rent', [RentCarController::class, "store"]);//insertRentCar
+Route::get('/rent', [RentCarController::class, "index"]);//getAllRentedCars
+Route::get('/rent/{rentCar:id}', [RentCarController::class, "show"]);//getSingleRentedCar
+Route::post('/rent', [RentCarController::class, "store"]);//insertRentedCar
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);

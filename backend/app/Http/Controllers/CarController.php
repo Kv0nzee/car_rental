@@ -24,10 +24,6 @@ class CarController extends Controller
                 'status' => 500
             ],500);
         };
-        // 'blogs'=>Blog::latest()
-        // ->filter(request(['search', 'category', 'author']))
-        // ->paginate(6)
-        // ->withQueryString()
     }
 
     public function show(Car $car){

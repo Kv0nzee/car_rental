@@ -8,6 +8,45 @@ use Illuminate\Http\Request;
 
 class RentCarController extends Controller
 {
+    public function index(){
+        try{
+            $rentCars = RentCar::latest()
+            ->filter(request(["car", "user"]))
+            ->join('cars', 'rent_cars.car_id', '=', 'cars.id')
+            ->join('users', 'rent_cars.user_id', '=', 'users.id')
+            ->join('categories', 'cars.category_id', '=', 'categories.id')
+            ->join('brands', 'cars.brand_id', '=', 'brands.id')
+            ->select('rent_cars.*', 'cars.name as car_name*', 'users.name as user_name', 'cars.id as car_id', 'categories.name as category_name', 'brands.name as brand_name')
+            ->get();
+
+        return $rentCars;
+        }catch( Exception $e){
+            return response()->json([
+                'message' => $e->getMessage(),
+                'status' => 500
+            ],500);
+        };
+    }
+
+    public function show(RentCar $rentCar){
+        try{
+            if(!$rentCar){
+                return response()->json([  
+                    'message' => 'car not found',
+                    'status' => 500
+                ],404);
+            }
+
+            return $rentCar;
+            
+        }catch(Exception $e){
+            return response()->json([
+                'message' => $e->getMessage(),
+                'status' => 500
+            ], 500);
+        }
+    }
+
     public function store(Request $request){
         try{
             $rentData =$request->validate([
