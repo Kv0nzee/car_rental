@@ -28,7 +28,10 @@
       </template>
       <template v-else>
         <div class="flex items-center gap-x-3">
-            <h1 class="text-xl font-extrabold">Hello {{store.state.user.name}}</h1>
+            <h1 class="my-auto text-xl font-extrabold">Hello {{store.state.user.name}}</h1>
+             <router-link to="/rentedList">
+                <p class="my-auto text-blue-800">Rented Car List</p>
+              </router-link>  
             <CustomButton
               title="Logout"
               btnType="button"
