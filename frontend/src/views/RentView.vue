@@ -44,12 +44,13 @@
   </a-table>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { cloneDeep } from 'lodash-es';
-import { reactive, ref } from 'vue';
+import { ref, onMounted, reactive } from 'vue';
 import { message } from 'ant-design-vue';
 import axios from 'axios';
-import { generateCarImageUrl } from '../utils';
+import { generateCarImageUrl } from '../utils';;
+import { useRoute } from 'vue-router';
 
 const columns = [
   { title: 'Image', dataIndex: 'image', width: '15%' },
@@ -63,12 +64,17 @@ const columns = [
 const calculateTotalPrice = (record) => {
   return record.pricePerDay * record.days;
 };
+
 const dataSource = ref([]);
 const editableData = reactive({});
+const route = useRoute();
 
-const fetchData = async () => {
+onMounted(async () => {
   try {
-    const response = await axios.get('http://127.0.0.1:8000/api/rent?user=user');
+    const userName = route.params.name;
+    console.log(userName);
+
+    const response = await axios.get(`http://127.0.0.1:8000/api/rent?user=${userName}`);
     response.data.forEach(item => {
       item.image = generateCarImageUrl({ brand_name: item.brand_name, name: item.car_name, year: item.year });
     });
@@ -77,7 +83,7 @@ const fetchData = async () => {
     console.error('Error fetching data:', error);
     message.error('Failed to fetch data.');
   }
-};
+});
 
 const edit = (record) => {
   editableData[record.id] = cloneDeep(record);
@@ -104,7 +110,7 @@ const cancel = (key) => {
   delete editableData[key];
 };
 
-const onDelete = async (key: string) => {
+const onDelete = async (key) => {
   try {
     await axios.delete(`http://127.0.0.1:8000/api/rent/${key}`);
     dataSource.value = dataSource.value.filter(item => item.id !== key);
@@ -114,12 +120,4 @@ const onDelete = async (key: string) => {
     message.error('Failed to delete record.');
   }
 };
-
-fetchData();
 </script>
-
-<style scoped>
-.editable-row-operations a {
-  margin-right: 8px;
-}
-</style>
