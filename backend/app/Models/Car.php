@@ -10,6 +10,8 @@ class Car extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function scopeFilter($query, $filters)
     {
         $query->when($filters['category'] ?? false, function ($query, $name) {

@@ -12,8 +12,34 @@
           <img :src="record[column.dataIndex]" alt="Car Image" style="width: 100px; height: auto;" />
         </div>
         <div v-else>
+          <!-- brand -->
+          <a-select 
+          ref="select"
+          v-if="editableData[record.id] && editableData[record.id][column.dataIndex] !== undefined && column.dataIndex === 'brand_name'"
+          v-model:value="editableData[record.id][column.dataIndex]"
+          style="width: 100%"
+          @change="handleChange"
+          >
+          <a-select-option v-for="brand in allBrand" :value="brand.id" :key="brand.id">
+              {{ brand.name }}
+          </a-select-option>
+          </a-select>
+
+          <!-- Category -->
+           <a-select 
+          ref="select"
+          v-if="editableData[record.id] && editableData[record.id][column.dataIndex] !== undefined && column.dataIndex === 'category_name'"
+          v-model:value="editableData[record.id][column.dataIndex]"
+          style="width: 100%"
+          @change="handleChange"
+          >
+          <a-select-option v-for="cat in allCat" :value="cat.id" :key="cat.id">
+              {{ cat.name }}
+          </a-select-option>
+          </a-select>
+
           <a-input
-            v-if="editableData[record.id] && editableData[record.id][column.dataIndex] !== undefined"
+            v-if="editableData[record.id] && editableData[record.id][column.dataIndex] !== undefined && column.dataIndex !== 'brand_name' && column.dataIndex !== 'category_name'"
             v-model:value="editableData[record.id][column.dataIndex]"
             style="margin: -5px 0"
           />
@@ -82,6 +108,8 @@ const calculateTotalPrice = (record) => {
 const dataSource = ref([]);
 const editableData = reactive({});
 const route = useRoute();
+const allBrand = ref([]);
+const allCat = ref([]);
 
 onMounted(async () => {
   try {
@@ -89,7 +117,10 @@ onMounted(async () => {
     console.log(userName);
 
     const response = await axios.get(`http://127.0.0.1:8000/api/cars`);
-    console.log(response);
+    const allbrandsres = await axios.get(`http://127.0.0.1:8000/api/brands`);
+    const allcategsres = await axios.get(`http://127.0.0.1:8000/api/categories`);
+    allBrand.value = allbrandsres.data;
+    allCat.value = allcategsres.data;
     response.data.forEach(item => {
       const paintIds = ["pspc0150", "pspc0028", "pspc0317", "pspc0076", "pspc0064", "pspc0109"];
       // Randomly select a paintId from the array
@@ -110,14 +141,13 @@ const edit = (record) => {
 const save = async (key) => {
   try {
     const editedRecord = editableData[key];
-    console.log(editedRecord);
-    // const response = await axios.put(`http://127.0.0.1:8000/api/rent/${key}`, editedRecord);
-    // const updatedRecordIndex = dataSource.value.findIndex((item) => item.id === key);
-    // if (updatedRecordIndex !== -1) {
-    //   Object.assign(dataSource.value[updatedRecordIndex], response.data.rental);
-    // }
-    // delete editableData[key];
-    // message.success('Record saved successfully.');
+    const response = await axios.put(`http://127.0.0.1:8000/api/cars/${editedRecord.name}/edit`, editedRecord);
+    const updatedRecordIndex = dataSource.value.findIndex((item) => item.id === key);
+    if (updatedRecordIndex !== -1) {
+      Object.assign(dataSource.value[updatedRecordIndex], response.data.rental);
+    }
+    delete editableData[key];
+    message.success('Record saved successfully.');
   } catch (error) {
     console.error('Error saving record:', error);
     message.error('Failed to save record.');
@@ -130,7 +160,7 @@ const cancel = (key) => {
 
 const onDelete = async (key) => {
   try {
-    await axios.delete(`http://127.0.0.1:8000/api/rent/${key}`);
+    await axios.delete(`http://127.0.0.1:8000/api/cars/${key}`);
     dataSource.value = dataSource.value.filter(item => item.id !== key);
     message.success('Record deleted successfully.');
   } catch (error) {
@@ -138,4 +168,8 @@ const onDelete = async (key) => {
     message.error('Failed to delete record.');
   }
 };
+
+const handleChange = (value) => {
+      console.log(`selected ${value}`);
+    };
 </script>

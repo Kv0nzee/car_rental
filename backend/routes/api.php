@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/cars', [CarController::class, "index"]);//getAllCars
 Route::get('/cars/{car:name}', [CarController::class, "show"]);//getSingleCar
+Route::put('/cars/{car:name}/edit', [CarController::class, "edit"]);//updateCar
+Route::delete('/cars/{id}', [CarController::class, 'delete']);//deletecar
 
 Route::get('/categories', [CategoryController::class, "index"]);//getAllCategories
 
