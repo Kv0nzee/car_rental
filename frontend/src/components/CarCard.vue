@@ -69,11 +69,15 @@ export default {
     const isOpen = ref(false);
     const carangles = ref([]);
 
+    // Array of paintIds
+    const paintIds = ["pspc0150", "pspc0028", "pspc0317", "pspc0076", "pspc0064", "pspc0109"];
+    // Randomly select a paintId from the array
+    const randomPaintId = paintIds[Math.floor(Math.random() * paintIds.length)];
     const carRent = computed(() => calculateCarRent(props.car.city_mpg, props.car.year));
-    const generateCarImageUrlC = computed(() => generateCarImageUrl(props.car));
-    const generateCarImageUrlA1 = computed(() => generateCarImageUrl(props.car, 29));
-    const generateCarImageUrlA2 = computed(() => generateCarImageUrl(props.car, 33));
-    const generateCarImageUrlA3 = computed(() => generateCarImageUrl(props.car, 13));
+    const generateCarImageUrlC = computed(() => generateCarImageUrl(props.car, 22, randomPaintId));
+    const generateCarImageUrlA1 = computed(() => generateCarImageUrl(props.car, 29, randomPaintId));
+    const generateCarImageUrlA2 = computed(() => generateCarImageUrl(props.car, 33, randomPaintId));
+    const generateCarImageUrlA3 = computed(() => generateCarImageUrl(props.car, 13, randomPaintId));
 
     // Combine computed properties into an array
     const carAngles = computed(() => [

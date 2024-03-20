@@ -32,6 +32,9 @@
              <router-link :to="{name: 'rentedList', params: { name: store.state.user.name } }">
                 <p class="my-auto text-blue-800">Rented Car List</p>
               </router-link>  
+              <router-link :to="{name: 'admin'}">
+                <p class="my-auto text-blue-800">Admin</p>
+              </router-link>  
             <CustomButton
               title="Logout"
               btnType="button"
