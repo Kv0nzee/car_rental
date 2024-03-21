@@ -11,6 +11,14 @@
   font-family: "Manrope", sans-serif;
 }
 
+.ant-btn-sm span{
+  color: black;
+}
+
+.ant-btn-sm:hover span{
+  color: rgb(103, 103, 103);
+}
+
 /* START: General styles */
 @layer components{
     .max-width {

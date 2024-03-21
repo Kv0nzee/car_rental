@@ -3,7 +3,7 @@
     <CustomButton
         title="Add Cars"
         containerStyles="bg-gray-800 text-black text-white rounded-full mt-20 ml-5"
-        @click="handleScroll"
+        @click="openModal"
   />
   <a-table :columns="columns" :data-source="dataSource" bordered class="mt-10">
     <template #bodyCell="{ column, text, record }">
@@ -57,12 +57,12 @@
             </a-popconfirm>
           </span>
           <span v-else>
-            <a @click="edit(record)">Edit</a>
+            <a class=" text-emerald-600 hover:text-emerald-900" @click="edit(record)">Edit</a>
             <a-popconfirm
               v-if="dataSource.length"
               title="Sure to delete?"
               @confirm="onDelete(record.id)"
-              class="ml-5"
+              class="ml-5 text-red-600 hover:text-red-900"
             >
               <a>Delete</a>
             </a-popconfirm>
@@ -71,6 +71,7 @@
       </template>
     </template>
   </a-table>
+  <CreateCarModalVue :isOpen="isOpen" @closeModal="closeModal" :brands="allBrand" :categories="allCat"/>
 </main>
 </template>
 
@@ -82,7 +83,7 @@ import axios from 'axios';
 import { generateCarImageUrl } from '../utils';;
 import { useRoute } from 'vue-router';
 import CustomButton from '../components/CustomButton.vue';
-
+import CreateCarModalVue from '../components/modals/CreateCarModal.vue';
 
 const columns = [
   { title: 'Image', dataIndex: 'image', width: '15%' },
@@ -110,6 +111,7 @@ const editableData = reactive({});
 const route = useRoute();
 const allBrand = ref([]);
 const allCat = ref([]);
+const isOpen = ref(false);
 
 onMounted(async () => {
   try {
@@ -134,6 +136,13 @@ onMounted(async () => {
   }
 });
 
+ const openModal = () => {
+      isOpen.value = true;
+    };
+
+    const closeModal = () => {
+      isOpen.value = false;
+    };
 const edit = (record) => {
   editableData[record.id] = cloneDeep(record);
 };

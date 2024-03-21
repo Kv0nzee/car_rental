@@ -28,12 +28,12 @@
             </a-popconfirm>
           </span>
           <span v-else>
-            <a @click="edit(record)">Edit</a>
+                <a class=" text-emerald-600 hover:text-emerald-900" @click="edit(record)">Edit</a>
             <a-popconfirm
               v-if="dataSource.length"
               title="Sure to delete?"
               @confirm="onDelete(record.id)"
-              class="ml-5"
+              class="ml-5 text-red-600 hover:text-red-900"
             >
               <a>Delete</a>
             </a-popconfirm>

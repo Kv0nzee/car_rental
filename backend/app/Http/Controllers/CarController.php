@@ -26,6 +26,34 @@ class CarController extends Controller
         };
     }
 
+    public function store(Request $request){
+        try{
+            $carData = $request->validate([
+                'brand_id' => 'required|exists:brands,id',
+                'category_id' => 'required|exists:categories,id',
+                'name' => 'required|string',
+                'city_mpg' => 'required|integer|min:0',
+                'highway_mpg' => 'required|integer|min:0',
+                'year' => 'required|integer|min:1900|max:'.date('Y'),
+            ]);
+            $carData['cylinders'] = 6;
+            $carData['displacement'] = 3.5;
+            $carData['drive'] = "fwd";
+            $carData['fuel_type'] = "gas";
+            $carData['transmission'] = "a";
+            $carData['combination_mpg'] = '22';
+
+            $car = Car::create($carData);
+
+            return response()->json(['car' => $car], 201);
+        }catch(Exception $e){
+            return response()->json([
+                 'message' => $e->getMessage(),
+                 'status' => 500
+             ], 500);
+         }
+    }
+
     public function show(Car $car){
         try{
             if(!$car){
