@@ -150,7 +150,7 @@ const edit = (record) => {
 const save = async (key) => {
   try {
     const editedRecord = editableData[key];
-    const response = await axios.put(`http://127.0.0.1:8000/api/cars/${editedRecord.name}/edit`, editedRecord);
+    const response = await axios.put(`http://127.0.0.1:8000/api/cars/${editedRecord.id}/edit`, editedRecord);
     const updatedRecordIndex = dataSource.value.findIndex((item) => item.id === key);
     if (updatedRecordIndex !== -1) {
       Object.assign(dataSource.value[updatedRecordIndex], response.data.rental);
