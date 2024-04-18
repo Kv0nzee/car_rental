@@ -1,5 +1,7 @@
 # Car Rental Website
-![image](https://github.com/Kv0nzee/car_rental/assets/62888962/07d97757-3a21-461c-9ed9-3adc33735ff5)
+
+![image](https://github.com/Kv0nzee/car_rental/assets/62888962/af9616d8-a36f-4cf9-b7b9-56ef41194202)
+
 
 On this project, users may look at cars, rent them, look at their rental records, and carry out CRUD operations on listings. The front end uses Vue.js, and the API in the back end uses Laravel.
 
